@@ -1,29 +1,37 @@
 package com.practice.angus;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import java.util.Arrays;
+import java.util.List;
 
+import static org.junit.Assert.assertEquals;
+
+@RunWith(value = Parameterized.class)
 public class LogAnalyzerTest {
-    @Test
-    public void IsValidFileName_GoodExtensionLowercase_ReturnsTrue() {
-        LogAnalyzer analyzer = new LogAnalyzer();
-        boolean result = analyzer.IsValidLogFileName("filewithgoodextension.slf");
-        assertTrue(result);
+    private final String fileName;
+    private final boolean expected;
+
+    @Parameterized.Parameters
+    public static List<Object[]> data() {
+        return Arrays.asList(new Object[][]{
+                {"filewithgoodextension.slf", true},
+                {"filewithgoodextension.SLF", true},
+                {"filewithbadextension.foo", false},
+        });
+    }
+
+    public LogAnalyzerTest(String fileName, boolean expected) {
+        this.fileName = fileName;
+        this.expected = expected;
     }
 
     @Test
-    public void IsValidFileName_GoodExtensionUppercase_ReturnsTrue() {
+    public void IsValidFileName_VariousExtension_ChecksThem() {
         LogAnalyzer analyzer = new LogAnalyzer();
-        boolean result = analyzer.IsValidLogFileName("filewithgoodextension.SLF");
-        assertTrue(result);
-    }
-
-    @Test
-    public void IsValidFileName_BadExtension_ReturnsFalse() {
-        LogAnalyzer analyzer = new LogAnalyzer();
-        boolean result = analyzer.IsValidLogFileName("filewithbadextension.foo");
-        assertFalse(result);
+        boolean result = analyzer.IsValidLogFileName(this.fileName);
+        assertEquals(this.expected, result);
     }
 }

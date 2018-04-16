@@ -7,6 +7,13 @@ import static org.junit.Assert.assertTrue;
 
 public class LogAnalyzerTest {
     @Test
+    public void IsValidFileName_GoodExtensionLowercase_ReturnsTrue() {
+        LogAnalyzer analyzer = new LogAnalyzer();
+        boolean result = analyzer.IsValidLogFileName("filewithgoodextension.slf");
+        assertTrue(result);
+    }
+
+    @Test
     public void IsValidFileName_GoodExtensionUppercase_ReturnsTrue() {
         LogAnalyzer analyzer = new LogAnalyzer();
         boolean result = analyzer.IsValidLogFileName("filewithgoodextension.SLF");

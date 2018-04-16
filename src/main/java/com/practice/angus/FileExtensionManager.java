@@ -1,6 +1,6 @@
 package com.practice.angus;
 
-public class FileExtensionManager {
+public class FileExtensionManager implements IExtensionManager {
     public boolean IsValid(String fileName) {
         if (fileName.isEmpty()) {
             throw new IllegalArgumentException("filename has to be provided.");

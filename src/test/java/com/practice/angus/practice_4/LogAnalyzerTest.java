@@ -28,8 +28,9 @@ public class LogAnalyzerTest {
         String tooShortFileName = "abc.ext";
         log.analyze(tooShortFileName);
 
-        assertThat(mockEmail.getTo()).isEqualTo("someone@somewhere.com");
-        assertThat(mockEmail.getSubject()).isEqualTo("can't log");
-        assertThat(mockEmail.getBody()).isEqualTo("fake exception");
+        EmailInfo expectedEmailInfo =
+                new EmailInfo("fake exception", "someone@somewhere.com", "can't log");
+
+        assertThat(mockEmail.getEmailInfo()).isEqualToComparingFieldByField(expectedEmailInfo);
     }
 }

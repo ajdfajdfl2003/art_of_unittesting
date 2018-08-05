@@ -18,7 +18,7 @@ public class LogAnalyzer {
             try {
                 service.LogError("Filename too short:" + fileName);
             } catch (Exception e) {
-                email.SendEnail("someone@somewhere.com", "can't log", e.getMessage());
+                email.SendEmail(new EmailInfo(e.getMessage(), "someone@somewhere.com", "can't log"));
             }
         }
     }

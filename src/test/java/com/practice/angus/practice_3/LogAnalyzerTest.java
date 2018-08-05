@@ -1,4 +1,4 @@
-package com.practice.angus;
+package com.practice.angus.practice_3;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

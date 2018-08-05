@@ -1,4 +1,4 @@
-package com.practice.angus;
+package com.practice.angus.practice_3;
 
 public class FileExtensionManager implements IExtensionManager {
     public boolean IsValid(String fileName) {

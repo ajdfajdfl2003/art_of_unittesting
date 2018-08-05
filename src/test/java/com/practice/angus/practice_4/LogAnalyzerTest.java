@@ -13,6 +13,23 @@ public class LogAnalyzerTest {
         String tooShortFileName = "abc.ext";
         log.analyze(tooShortFileName);
 
-        assertThat(mockService.getLastError()).contains("Filename too short:abc.ext");
+        assertThat(mockService.getLastError()).isEqualTo("Filename too short:abc.ext");
+    }
+
+    @Test
+    public void Analyze_WebServiceThrows_SendsEmail() {
+        FakeWebService stubService = new FakeWebService();
+        stubService.setToThrow(new Exception("fake exception"));
+
+        FakeEmailService mockEmail = new FakeEmailService();
+
+        LogAnalyzer log = new LogAnalyzer(stubService, mockEmail);
+
+        String tooShortFileName = "abc.ext";
+        log.analyze(tooShortFileName);
+
+        assertThat(mockEmail.getTo()).isEqualTo("someone@somewhere.com");
+        assertThat(mockEmail.getSubject()).isEqualTo("can't log");
+        assertThat(mockEmail.getBody()).isEqualTo("fake exception");
     }
 }
